@@ -10,17 +10,6 @@ import SoundpipeAudioKit
 import Foundation
 import Observation
 
-enum TunerError: Error, LocalizedError {
-    case microphoneUnavailable
-
-    var errorDescription: String? {
-        switch self {
-        case .microphoneUnavailable:
-            return "Microphone unavailable. Please grant microphone access in Settings."
-        }
-    }
-}
-
 @Observable
 class TunerEngine {
 
