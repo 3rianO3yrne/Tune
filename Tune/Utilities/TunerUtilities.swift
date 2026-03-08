@@ -29,7 +29,7 @@ extension Double {
 // MARK: - Environment Keys
 
 private struct HasSignalKey: EnvironmentKey {
-    static let defaultValue: Bool = false
+    static let defaultValue: Bool = true
 }
 
 extension EnvironmentValues {
