@@ -394,6 +394,7 @@ struct TunerDialView: View {
 
                     // Oval gauge
                     OvalBezelView(cents: cents, size: CGSize(width: gaugeW, height: gaugeH))
+                        .animation(.spring(response: 0.25, dampingFraction: 0.75), value: cents)
 
                     // Bottom row — note readout left
                     HStack {
