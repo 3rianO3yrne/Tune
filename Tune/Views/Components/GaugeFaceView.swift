@@ -8,6 +8,7 @@ import SwiftUI
 
 struct GaugeArcContent: View, Animatable {
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.hasSignal) var hasSignal
 
     var cents: Double   // var required for Animatable
     let size: CGSize
@@ -33,10 +34,10 @@ struct GaugeArcContent: View, Animatable {
         Canvas { ctx, _ in
             let pivot = CGPoint(x: w / 2, y: h * 0.93)
             let radius: CGFloat = h * 0.70
-            let trackW: CGFloat = max(4, h * 0.045)
+            let trackW: CGFloat = max(12, h * 0.15)
             let nRad = Angle.degrees(angleDeg).radians
             let tRad = Angle.degrees(angleDeg + 180).radians
-            let gap: Double = 0.8  // degrees trimmed from each end of a segment
+            let gap: Double = 1.2  // degrees trimmed from each end of a segment
 
             // Active segment index (0–9)
             let activeIndex = min(Int((clampedCents + 50) / 10), 9)
@@ -53,7 +54,7 @@ struct GaugeArcContent: View, Animatable {
                            startAngle: .degrees(a1), endAngle: .degrees(a2), clockwise: true)
 
                 let inTuneRange = abs(clampedCents) <= 10
-                let isActive = i == activeIndex || (inTuneRange && (i == 4 || i == 5))
+                let isActive = hasSignal && (i == activeIndex || (inTuneRange && (i == 4 || i == 5)))
                 let dimColor: Color = isDark ? .white.opacity(0.12) : .black.opacity(0.10)
                 let color: Color = isActive ? segmentColor.opacity(0.85) : dimColor 
 

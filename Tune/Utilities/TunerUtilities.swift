@@ -26,6 +26,19 @@ extension Double {
     }
 }
 
+// MARK: - Environment Keys
+
+private struct HasSignalKey: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
+extension EnvironmentValues {
+    var hasSignal: Bool {
+        get { self[HasSignalKey.self] }
+        set { self[HasSignalKey.self] = newValue }
+    }
+}
+
 // MARK: - Frequency Formatting
 
 extension Float {
