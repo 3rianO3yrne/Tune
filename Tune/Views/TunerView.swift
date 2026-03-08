@@ -30,23 +30,15 @@ struct TunerView: View {
             Spacer()
 
             if frequency > 0 {
-                VStack(spacing: 8) {
-                    CentsGauge(cents: cents)
-                        .padding(.horizontal, 32)
+                VStack(spacing: 4) {
+                    ArcGauge(cents: cents)
+                        .padding(.horizontal, 24)
 
-                    HStack {
-                        Text("−50")
-                        Spacer()
-                        Text(cents.formattedCentsLabel)
-                            .monospacedDigit()
-                            .fontWeight(.medium)
-                            .foregroundStyle(cents.tuningAccuracyColor)
-                        Spacer()
-                        Text("+50")
-                    }
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .padding(.horizontal, 32)
+                    Text(cents.formattedCentsLabel)
+                        .font(.callout)
+                        .monospacedDigit()
+                        .fontWeight(.medium)
+                        .foregroundStyle(cents.tuningAccuracyColor)
                 }
                 .transition(.opacity)
             }
@@ -62,7 +54,7 @@ struct TunerView: View {
     TunerView(
         frequency: 440.0,
         noteName: "A4",
-        cents: 12.5
+        cents: 5
     )
 }
 

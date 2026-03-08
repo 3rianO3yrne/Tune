@@ -18,10 +18,10 @@ struct ContentView: View {
                 if let error = tuner.error {
                     ErrorView(error: error)
                 } else {
-                    TunerView(
-                        frequency: tuner.frequency,
-                        noteName: noteName,
-                        cents: tuner.cents
+                    TunerDialView(
+                        cents: tuner.cents,
+                        noteName: dialNoteName,
+                        octave: tuner.octave
                     )
                 }
             }
@@ -44,27 +44,23 @@ struct ContentView: View {
                 }
             }
         }
-        .task {
-            tuner.start()
-        }
-        .onDisappear {
-            tuner.stop()
-        }
+        .task { tuner.start() }
+        .onDisappear { tuner.stop() }
     }
 
     // MARK: - Computed Properties
 
-    private var noteName: String {
+    private var dialNoteName: String {
         guard tuner.frequency > 0 else { return "--" }
         switch pitchAccidentalDisplay {
         case .sharps:
-            return "\(tuner.noteNameWithSharps)\(tuner.octave)"
+            return tuner.noteNameWithSharps
         case .flats:
-            return "\(tuner.noteNameWithFlats)\(tuner.octave)"
+            return tuner.noteNameWithFlats
         case .both:
             let sharp = tuner.noteNameWithSharps
             let flat = tuner.noteNameWithFlats
-            return sharp == flat ? "\(sharp)\(tuner.octave)" : "\(sharp)/\(flat)\(tuner.octave)"
+            return sharp == flat ? sharp : "\(sharp)/\(flat)"
         }
     }
 }
