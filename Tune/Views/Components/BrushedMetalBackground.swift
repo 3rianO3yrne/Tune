@@ -36,3 +36,8 @@ struct BrushedMetalBackground: View {
         }
     }
 }
+
+#Preview {
+    BrushedMetalBackground()
+        .ignoresSafeArea()
+}

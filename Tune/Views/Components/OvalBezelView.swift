@@ -60,3 +60,16 @@ struct OvalBezelView: View {
         }
     }
 }
+
+#Preview("Light — Flat") {
+    OvalBezelView(cents: -20, size: CGSize(width: 320, height: 160))
+        .preferredColorScheme(.light)
+        .padding(30)
+}
+
+#Preview("Dark — In Tune") {
+    OvalBezelView(cents: 0, size: CGSize(width: 320, height: 160))
+        .preferredColorScheme(.dark)
+        .padding(30)
+        .background(Color.black)
+}

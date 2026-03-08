@@ -71,3 +71,22 @@ struct NoteReadoutPanel: View {
         .clipShape(RoundedRectangle(cornerRadius: 6))
     }
 }
+
+#Preview("Light") {
+    HStack(spacing: 20) {
+        NoteReadoutPanel(noteName: "A", octave: 4)
+        NoteReadoutPanel(noteName: "--", octave: 4)
+    }
+    .padding()
+    .preferredColorScheme(.light)
+}
+
+#Preview("Dark") {
+    HStack(spacing: 20) {
+        NoteReadoutPanel(noteName: "C#", octave: 5)
+        NoteReadoutPanel(noteName: "--", octave: 4)
+    }
+    .padding()
+    .background(Color.black)
+    .preferredColorScheme(.dark)
+}

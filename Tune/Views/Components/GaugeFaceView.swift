@@ -160,3 +160,16 @@ struct GaugeFaceView: View {
         .clipShape(Ellipse())
     }
 }
+
+#Preview("Light — In Tune") {
+    GaugeFaceView(cents: 0, size: CGSize(width: 300, height: 150))
+        .preferredColorScheme(.light)
+        .padding()
+}
+
+#Preview("Dark — Sharp") {
+    GaugeFaceView(cents: 28, size: CGSize(width: 300, height: 150))
+        .preferredColorScheme(.dark)
+        .padding()
+        .background(Color.black)
+}
