@@ -52,7 +52,8 @@ struct GaugeArcContent: View, Animatable {
                 seg.addArc(center: pivot, radius: radius,
                            startAngle: .degrees(a1), endAngle: .degrees(a2), clockwise: true)
 
-                let isActive = i == activeIndex
+                let inTuneRange = abs(clampedCents) <= 10
+                let isActive = i == activeIndex || (inTuneRange && (i == 4 || i == 5))
                 let dimColor: Color = isDark ? .white.opacity(0.12) : .black.opacity(0.10)
                 let color: Color = isActive ? segmentColor.opacity(0.85) : dimColor 
 
