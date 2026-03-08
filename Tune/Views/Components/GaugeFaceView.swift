@@ -21,19 +21,6 @@ struct GaugeArcContent: View, Animatable {
     private var needleAngleDeg: Double { 200 + (clamped + 50) / 100 * 140 }
     private var needleColor: Color { clamped.tuningAccuracyColor }
 
-    /// Color for a lit segment based on its distance from 0¢.
-    /// Segments 4 (−10→0) and 5 (0→+10) are innermost; 0 and 9 are outermost.
-    private func segmentColor(forIndex index: Int) -> Color {
-        let distFromCenter = index < 5 ? (4 - index) : (index - 5)
-        switch distFromCenter {
-        case 0: return .green
-        case 1: return Color(red: 0.6, green: 0.85, blue: 0.0)
-        case 2: return .yellow
-        case 3: return .orange
-        default: return .red
-        }
-    }
-
     var body: some View {
         let isDark = colorScheme == .dark
         let w = size.width
@@ -66,7 +53,7 @@ struct GaugeArcContent: View, Animatable {
 
                 let isActive = i == activeIndex
                 let dimColor: Color = isDark ? .white.opacity(0.12) : .black.opacity(0.10)
-                let color: Color = isActive ? segmentColor(forIndex: i).opacity(0.85) : dimColor
+                let color: Color = isActive ? nColor.opacity(0.85) : dimColor 
 
                 ctx.stroke(seg, with: .color(color),
                            style: StrokeStyle(lineWidth: trackW, lineCap: .butt))
