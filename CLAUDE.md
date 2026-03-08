@@ -40,3 +40,23 @@ This is an early-stage SwiftUI app. The entry point is `TuneApp.swift` (`@main`)
 - `TuneUITests/` — UI tests using XCTest (`XCUIApplication`)
 
 Note: `TuneTests` uses the newer Swift Testing framework, not XCTest — use `@Test` and `#expect` rather than `XCTestCase`.
+
+## File Structure Conventions
+
+```
+Tune/
+├── Engine/          # Audio processing, TunerEngine
+├── Models/          # Plain data types, errors, value types
+├── Utilities/       # Shared helpers, math, extensions
+└── Views/
+    ├── Components/  # Reusable, single-responsibility SwiftUI views
+    │                #   One component per file, named after the type
+    │                #   Design tokens (Color extensions, etc.) go here too
+    ├── Settings/    # Settings-related sheets and popovers
+    └── (root)       # Screen-level views (ContentView, TunerView, TunerDialView)
+```
+
+**Rules:**
+- Each file in `Views/Components/` contains one primary view (and any tightly coupled private helpers).
+- Screen-level "shell" views that compose components live directly in `Views/`.
+- When a view grows large, extract sub-views into `Views/Components/` rather than nesting private structs in the same file.
