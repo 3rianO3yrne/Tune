@@ -57,9 +57,12 @@ struct ArcGauge: View, Animatable {
                            startAngle: .degrees(a1), endAngle: .degrees(a2), clockwise: true)
 
                 let inTuneRange = abs(clampedCents) <= 10
-                let isActive = hasSignal && (i == activeIndex || (inTuneRange && (i == 4 || i == 5)))
+                let isInner = i == 4 || i == 5
+                let isActive = hasSignal && (i == activeIndex || (inTuneRange && isInner))
                 let dimColor: Color = isDark ? .white.opacity(0.12) : .black.opacity(0.10)
-                let color: Color = isActive ? segmentColor.opacity(0.85) : dimColor
+                let mutedColor: Color = isDark ? .white.opacity(0.04) : .black.opacity(0.04)
+                let color: Color = isActive ? segmentColor.opacity(0.85)
+                    : (inTuneRange && !isInner ? mutedColor : dimColor)
 
                 ctx.stroke(seg, with: .color(color),
                            style: StrokeStyle(lineWidth: trackW, lineCap: .butt))
@@ -118,7 +121,7 @@ struct ArcGauge: View, Animatable {
     VStack(spacing: 40) {
         ArcGauge(cents: 0)
             .frame(width: 300, height: 150)
-        ArcGauge(cents: -25)
+        ArcGauge(cents: -10)
             .frame(width: 300, height: 150)
         ArcGauge(cents: 15)
             .frame(width: 300, height: 150)
