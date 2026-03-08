@@ -82,22 +82,34 @@ struct ArcGauge: View, Animatable {
                            style: StrokeStyle(lineWidth: isCenter ? 2 : 1))
             }
 
-            // Needle with short tail
+            // Needle with short tail — neon glow via layered strokes (wide→dim to narrow→bright)
             let tailLen = size.height * 0.93 * 0.07
             var needle = Path()
             needle.move(to: CGPoint(x: pivot.x + CGFloat(cos(tRad)) * tailLen,
                                     y: pivot.y + CGFloat(sin(tRad)) * tailLen))
             needle.addLine(to: CGPoint(x: pivot.x + CGFloat(cos(nRad)) * needleR,
                                        y: pivot.y + CGFloat(sin(nRad)) * needleR))
-            ctx.stroke(needle, with: .color(nColor),
-                       style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
+            // Outer glow
+            ctx.stroke(needle, with: .color(nColor.opacity(0.08)),
+                       style: StrokeStyle(lineWidth: 8, lineCap: .round))
+            // Mid glow
+            ctx.stroke(needle, with: .color(nColor.opacity(0.22)),
+                       style: StrokeStyle(lineWidth: 4, lineCap: .round))
+            // Bright core
+            ctx.stroke(needle, with: .color(nColor.opacity(0.95)),
+                       style: StrokeStyle(lineWidth: 2.5, lineCap: .round))
+            // Sharp specular edge — simulates the lit surface of a plastic tube
+            ctx.stroke(needle, with: .color(Color.white.opacity(0.75)),
+                       style: StrokeStyle(lineWidth: 0.75, lineCap: .round))
 
-            // Pivot dot
+            // Pivot dot — glowing to match needle
             let pivotR = size.height * 0.93 * 0.065 / 2
-            let pivotColor: Color = isDark ? .white.opacity(0.45) : .black.opacity(0.35)
             ctx.fill(Path(ellipseIn: CGRect(x: pivot.x - pivotR, y: pivot.y - pivotR,
                                             width: pivotR * 2, height: pivotR * 2)),
-                     with: .color(pivotColor))
+                     with: .color(nColor.opacity(0.15)))
+            ctx.fill(Path(ellipseIn: CGRect(x: pivot.x - pivotR * 0.55, y: pivot.y - pivotR * 0.55,
+                                            width: pivotR * 1.1, height: pivotR * 1.1)),
+                     with: .color(nColor.opacity(0.9)))
         }
     }
 }
