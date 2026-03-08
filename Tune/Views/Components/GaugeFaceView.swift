@@ -21,12 +21,26 @@ struct GaugeArcContent: View, Animatable {
     private var needleAngleDeg: Double { 200 + (clamped + 50) / 100 * 140 }
     private var needleColor: Color { clamped.tuningAccuracyColor }
 
+    /// Color for a lit segment based on its distance from 0¢.
+    /// Segments 4 (−10→0) and 5 (0→+10) are innermost; 0 and 9 are outermost.
+    private func segmentColor(forIndex index: Int) -> Color {
+        let distFromCenter = index < 5 ? (4 - index) : (index - 5)
+        switch distFromCenter {
+        case 0: return .green
+        case 1: return Color(red: 0.6, green: 0.85, blue: 0.0)
+        case 2: return .yellow
+        case 3: return .orange
+        default: return .red
+        }
+    }
+
     var body: some View {
         let isDark = colorScheme == .dark
         let w = size.width
         let h = size.height
         let angleDeg = needleAngleDeg
         let nColor = needleColor
+        let clampedCents = clamped
 
         Canvas { ctx, _ in
             let pivot = CGPoint(x: w / 2, y: h * 0.93)
@@ -34,36 +48,45 @@ struct GaugeArcContent: View, Animatable {
             let trackW: CGFloat = max(4, h * 0.045)
             let nRad = Angle.degrees(angleDeg).radians
             let tRad = Angle.degrees(angleDeg + 180).radians
+            let gap: Double = 0.8  // degrees trimmed from each end of a segment
 
-            // Background arc track
-            var track = Path()
-            track.addArc(center: pivot, radius: radius,
-                         startAngle: .degrees(200), endAngle: .degrees(340), clockwise: true)
-            let trackColor: Color = isDark ? .white.opacity(0.12) : .black.opacity(0.10)
-            ctx.stroke(track, with: .color(trackColor),
-                       style: StrokeStyle(lineWidth: trackW, lineCap: .round))
+            // Active segment index (0–9)
+            let activeIndex = min(Int((clampedCents + 50) / 10), 9)
 
-            // In-tune zone (±5¢ → ±7° of 140° sweep)
-            var zone = Path()
-            zone.addArc(center: pivot, radius: radius,
-                        startAngle: .degrees(263), endAngle: .degrees(277), clockwise: true)
-            ctx.stroke(zone, with: .color(.green.opacity(0.45)),
-                       style: StrokeStyle(lineWidth: trackW + h * 0.02, lineCap: .round))
+            // Segments — one per 10¢ interval across the 140° sweep
+            for i in 0..<10 {
+                let c1 = Double(i) * 10 - 50
+                let c2 = c1 + 10
+                let a1 = 200 + (c1 + 50) / 100 * 140 + gap
+                let a2 = 200 + (c2 + 50) / 100 * 140 - gap
 
-            // Tick marks at -50, -25, 0, +25, +50
-            for t in [-50.0, -25.0, 0.0, 25.0, 50.0] {
+                var seg = Path()
+                seg.addArc(center: pivot, radius: radius,
+                           startAngle: .degrees(a1), endAngle: .degrees(a2), clockwise: true)
+
+                let isActive = i == activeIndex
+                let dimColor: Color = isDark ? .white.opacity(0.12) : .black.opacity(0.10)
+                let color: Color = isActive ? segmentColor(forIndex: i).opacity(0.85) : dimColor
+
+                ctx.stroke(seg, with: .color(color),
+                           style: StrokeStyle(lineWidth: trackW, lineCap: .butt))
+            }
+
+            // Tick marks every 10¢ (-50 to +50)
+            for t in stride(from: -50.0, through: 50.0, by: 10.0) {
                 let a = Angle.degrees(200 + (t + 50) / 100 * 140).radians
-                let inner = radius - trackW * 1.1
-                let outer = radius + trackW * 0.8
+                let isCenter = t == 0
+                let inner = radius - trackW * (isCenter ? 1.4 : 1.1)
+                let outer = radius + trackW * (isCenter ? 1.0 : 0.8)
                 var tick = Path()
                 tick.move(to: CGPoint(x: pivot.x + CGFloat(cos(a)) * inner,
                                       y: pivot.y + CGFloat(sin(a)) * inner))
                 tick.addLine(to: CGPoint(x: pivot.x + CGFloat(cos(a)) * outer,
                                          y: pivot.y + CGFloat(sin(a)) * outer))
-                let op = t == 0 ? (isDark ? 0.7 : 0.6) : (isDark ? 0.4 : 0.3)
+                let op = isCenter ? (isDark ? 0.7 : 0.6) : (isDark ? 0.4 : 0.3)
                 let tickColor: Color = isDark ? .white.opacity(op) : .black.opacity(op)
                 ctx.stroke(tick, with: .color(tickColor),
-                           style: StrokeStyle(lineWidth: t == 0 ? 2 : 1))
+                           style: StrokeStyle(lineWidth: isCenter ? 2 : 1))
             }
 
             // Needle with short tail

@@ -60,3 +60,4 @@ Tune/
 - Each file in `Views/Components/` contains one primary view (and any tightly coupled private helpers).
 - Screen-level "shell" views that compose components live directly in `Views/`.
 - When a view grows large, extract sub-views into `Views/Components/` rather than nesting private structs in the same file.
+- **Prefer reusing existing components over duplicating logic.** Before writing new rendering code, check `Views/Components/` for an existing component that can be used or extended. Duplicate implementations of the same visual element must be avoided.
