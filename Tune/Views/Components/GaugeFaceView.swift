@@ -20,6 +20,7 @@ struct GaugeArcContent: View, Animatable {
     private var clamped: Double { min(max(cents, -50), 50) }
     private var needleAngleDeg: Double { 200 + (clamped + 50) / 100 * 140 }
     private var needleColor: Color { clamped.tuningAccuracyColor }
+    private var segmentColor: Color { abs(clamped) <= 10 ? .green : .red }
 
     var body: some View {
         let isDark = colorScheme == .dark
@@ -53,7 +54,7 @@ struct GaugeArcContent: View, Animatable {
 
                 let isActive = i == activeIndex
                 let dimColor: Color = isDark ? .white.opacity(0.12) : .black.opacity(0.10)
-                let color: Color = isActive ? nColor.opacity(0.85) : dimColor 
+                let color: Color = isActive ? segmentColor.opacity(0.85) : dimColor 
 
                 ctx.stroke(seg, with: .color(color),
                            style: StrokeStyle(lineWidth: trackW, lineCap: .butt))
