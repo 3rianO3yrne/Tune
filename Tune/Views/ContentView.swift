@@ -13,6 +13,10 @@ struct ContentView: View {
     @State private var showSettings = false
 
     var body: some View {
+        let _ = print("frequency: ", tuner.frequency)
+        let _ = print("cents: ", tuner.cents)
+
+
         NavigationStack {
             Group {
                 if let error = tuner.error {

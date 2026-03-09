@@ -54,7 +54,7 @@ struct TunerView: View {
     TunerView(
         frequency: 440.0,
         noteName: "A4",
-        cents: 5
+        cents: -30
     )
 }
 
