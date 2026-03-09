@@ -41,6 +41,8 @@ struct TunerDialView: View {
 
                     // Oval gauge
                     OvalBezelView(cents: cents, size: CGSize(width: gaugeW, height: gaugeH))
+                        // Smooths out the needle animation
+                        .animation(.spring(response: 0.25, dampingFraction: 0.75), value: cents)
                         .environment(\.hasSignal, noteName != "--")
 
                     // Bottom row — note readout left

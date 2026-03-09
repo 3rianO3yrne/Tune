@@ -36,8 +36,6 @@ class TunerEngine {
 
     // MARK: - Silence
 
-    private var smoothedFrequency: Float = 0
-    private let smoothingFactor: Float = 0.25
     private var silenceTimer: Timer?
 
     // MARK: - Lifecycle
@@ -57,10 +55,8 @@ class TunerEngine {
             let freq = pitch[0]
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
-                self.smoothedFrequency = self.smoothingFactor * freq
-                    + (1 - self.smoothingFactor) * self.smoothedFrequency
                 self.resetSilenceTimer()
-                self.update(frequency: self.smoothedFrequency)
+                self.update(frequency: freq)
             }
         }
 
@@ -100,11 +96,10 @@ class TunerEngine {
     private func resetSilenceTimer() {
         silenceTimer?.invalidate()
         // adjust the interval here to change the silence behavior before going to the default no sound state
-        silenceTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: false) { [weak self] (_: Timer) in
+        silenceTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { [weak self] (_: Timer) in
             guard let self else { return }
             self.frequency = 0
             self.cents = 0
-            self.smoothedFrequency = 0
             self.noteNameWithSharps = "--"
             self.noteNameWithFlats = "--"
         }
