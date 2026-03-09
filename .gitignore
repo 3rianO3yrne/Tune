@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+*.DS_Store
+
+# Xcode user data
+xcuserdata/
+*.xccheckout
+*.xcscmblueprint
+
+# Build artifacts
+build/
+DerivedData/
+*.ipa
+*.dSYM.zip
+
+# Swift Package Manager
+.build/
+Packages/
+.swiftpm/
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/*.png
+fastlane/test_output
+
+# Claude Code local data
+.claude/
+
+# CocoaPods (not currently used)
+# Pods/
+# Podfile.lock
