@@ -11,7 +11,6 @@ struct ArcGauge: View, Animatable {
     var cents: Double   // var required for Animatable
 
     @Environment(\.colorScheme) var colorScheme
-    @Environment(\.hasSignal) var hasSignal
 
     var animatableData: Double {
         get { cents }
@@ -25,13 +24,11 @@ struct ArcGauge: View, Animatable {
     }
 
     private var needleColor: Color { clamped.tuningAccuracyColor }
-    private var segmentColor: Color { abs(clamped) <= 10 ? .green : .red }
 
     var body: some View {
         let isDark = colorScheme == .dark
         let angleDeg = needleAngleDeg
         let nColor = needleColor
-        let clampedCents = clamped
 
         Canvas { ctx, size in
             let pivot = CGPoint(x: size.width / 2, y: size.height * 0.93)
@@ -40,33 +37,6 @@ struct ArcGauge: View, Animatable {
             let needleR = radius - trackW / 2
             let nRad = Angle.degrees(angleDeg).radians
             let tRad = Angle.degrees(angleDeg + 180).radians
-            let gap: Double = 1.0
-
-            // Active segment index (0–9)
-            let activeIndex = min(Int((clampedCents + 50) / 10), 9)
-
-            // Segments — one per 10¢ interval across the 140° sweep
-            for i in 0..<10 {
-                let c1 = Double(i) * 10 - 50
-                let c2 = c1 + 10
-                let a1 = 200 + (c1 + 50) / 100 * 140 + gap
-                let a2 = 200 + (c2 + 50) / 100 * 140 - gap
-
-                var seg = Path()
-                seg.addArc(center: pivot, radius: radius,
-                           startAngle: .degrees(a1), endAngle: .degrees(a2), clockwise: true)
-
-                let inTuneRange = abs(clampedCents) <= 10
-                let isInner = i == 4 || i == 5
-                let isActive = hasSignal && (i == activeIndex || (inTuneRange && isInner))
-                let dimColor: Color = isDark ? .white.opacity(0.12) : .black.opacity(0.10)
-                let mutedColor: Color = isDark ? .white.opacity(0.04) : .black.opacity(0.04)
-                let color: Color = isActive ? segmentColor.opacity(0.85)
-                    : (inTuneRange && !isInner ? mutedColor : dimColor)
-
-                ctx.stroke(seg, with: .color(color),
-                           style: StrokeStyle(lineWidth: trackW, lineCap: .butt))
-            }
 
             // Tick marks every 10¢ (-50 to +50)
             for t in stride(from: -50.0, through: 50.0, by: 10.0) {
@@ -118,16 +88,15 @@ struct ArcGauge: View, Animatable {
 }
 
 #Preview {
-    VStack(spacing: 40) {
+    VStack(spacing: 24) {
         ArcGauge(cents: 0)
             .frame(width: 300, height: 150)
-        ArcGauge(cents: -10)
+        ArcGauge(cents: 35)
             .frame(width: 300, height: 150)
-        ArcGauge(cents: 15)
+        ArcGauge(cents: -25)
             .frame(width: 300, height: 150)
-        ArcGauge(cents: -48)
+        ArcGauge(cents: -45)
             .frame(width: 300, height: 150)
     }
     .padding()
-    .environment(\.hasSignal, true)
 }

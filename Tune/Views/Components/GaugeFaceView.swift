@@ -37,7 +37,7 @@ struct GaugeFaceView: View {
                     )
                 )
 
-            // Arc gauge
+            // The arc gauge and needle
             ArcGauge(cents: cents)
                 .frame(width: w, height: h)
 
@@ -70,6 +70,8 @@ struct GaugeFaceView: View {
                     ),
                     lineWidth: 18
                 )
+
+
         }
         .frame(width: w, height: h)
         .clipShape(Ellipse())
@@ -84,7 +86,7 @@ struct GaugeFaceView: View {
 }
 
 #Preview("Dark — Sharp") {
-    GaugeFaceView(cents: 28, size: CGSize(width: 300, height: 150))
+    GaugeFaceView(cents: 11, size: CGSize(width: 300, height: 150))
         .preferredColorScheme(.dark)
         .padding()
         .background(Color.black)
