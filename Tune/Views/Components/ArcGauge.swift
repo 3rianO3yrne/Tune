@@ -37,7 +37,7 @@ struct ArcGauge: View, Animatable {
             let pivot = CGPoint(x: size.width / 2, y: size.height * 0.93)
             let radius: CGFloat = min(size.width / 2, size.height * 0.93) * 0.88
             let trackW: CGFloat = max(12, size.height * 0.15)
-            let needleR = radius - trackW / 2
+            let needleR = radius
             let nRad = Angle.degrees(angleDeg).radians
             let tRad = Angle.degrees(angleDeg + 180).radians
 
@@ -49,9 +49,21 @@ struct ArcGauge: View, Animatable {
                        clockwise: true)
 
             if signal {
+                // Outer glow
+                ctx.stroke(arc, with: .color(clampedVal.tuningAccuracyColor.opacity(0.07)),
+                           style: StrokeStyle(lineWidth: trackW * 2.2, lineCap: .butt))
+                // Mid glow
+                ctx.stroke(arc, with: .color(clampedVal.tuningAccuracyColor.opacity(0.18)),
+                           style: StrokeStyle(lineWidth: trackW * 1.5, lineCap: .butt))
+                // Main arc
                 ctx.stroke(arc, with: .color(clampedVal.tuningAccuracyColor),
                            style: StrokeStyle(lineWidth: trackW, lineCap: .butt))
+
+                // Damping overlay
+                ctx.stroke(arc, with: .color(Color.black.opacity(0.45)),
+                           style: StrokeStyle(lineWidth: trackW, lineCap: .butt))
             } else {
+                // Grayed out (no signal)
                 ctx.stroke(arc, with: .color(Color.gray.opacity(0.18)),
                            style: StrokeStyle(lineWidth: trackW, lineCap: .butt))
             }
@@ -60,7 +72,7 @@ struct ArcGauge: View, Animatable {
             for t in stride(from: -50.0, through: 50.0, by: 10.0) {
                 let a = Angle.degrees(200 + (t + 50) / 100 * 140).radians
                 let isCenter = t == 0
-                let inner = radius - trackW * (isCenter ? 1.4 : 1.1)
+                let inner = radius - trackW * (isCenter ? 1.0 : 0.8)
                 let outer = radius + trackW * (isCenter ? 1.0 : 0.8)
                 var tick = Path()
                 tick.move(to: CGPoint(x: pivot.x + CGFloat(cos(a)) * inner,
@@ -127,4 +139,5 @@ struct ArcGauge: View, Animatable {
             .environment(\.hasSignal, false)
     }
     .padding()
+    .preferredColorScheme(.dark)
 }
