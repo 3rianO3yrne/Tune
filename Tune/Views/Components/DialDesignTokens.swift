@@ -19,6 +19,14 @@ extension Color {
     // Readout panel
     static let readoutFaceLight  = Color(hex: "#EDE8DF")
     static let readoutFaceDark   = Color(hex: "#161412")
+
+    // Color Indicators
+    static let accuracyGreenBright = Color.green
+    static let accuracyGreen = Color.green
+    static let accuracyOrange = Color.orange
+    static let accuracyYellow = Color.yellow
+    static let accuracyRed = Color.red
+
 }
 
 extension Color {

@@ -11,6 +11,7 @@ struct ArcGauge: View, Animatable {
     var cents: Double   // var required for Animatable
 
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.hasSignal) var hasSignal
 
     var animatableData: Double {
         get { cents }
@@ -29,6 +30,8 @@ struct ArcGauge: View, Animatable {
         let isDark = colorScheme == .dark
         let angleDeg = needleAngleDeg
         let nColor = needleColor
+        let clampedVal = clamped
+        let signal = hasSignal
 
         Canvas { ctx, size in
             let pivot = CGPoint(x: size.width / 2, y: size.height * 0.93)
@@ -37,6 +40,21 @@ struct ArcGauge: View, Animatable {
             let needleR = radius - trackW / 2
             let nRad = Angle.degrees(angleDeg).radians
             let tRad = Angle.degrees(angleDeg + 180).radians
+
+            // Arc band — drawn before ticks so ticks render on top
+            let arcRadius: CGFloat = radius + trackW * 0.0
+            var arc = Path()
+            arc.addArc(center: pivot, radius: arcRadius,
+                       startAngle: .degrees(0), endAngle: .degrees(180),
+                       clockwise: true)
+
+            if signal {
+                ctx.stroke(arc, with: .color(clampedVal.tuningAccuracyColor),
+                           style: StrokeStyle(lineWidth: trackW, lineCap: .butt))
+            } else {
+                ctx.stroke(arc, with: .color(Color.gray.opacity(0.18)),
+                           style: StrokeStyle(lineWidth: trackW, lineCap: .butt))
+            }
 
             // Tick marks every 10¢ (-50 to +50)
             for t in stride(from: -50.0, through: 50.0, by: 10.0) {
@@ -91,12 +109,22 @@ struct ArcGauge: View, Animatable {
     VStack(spacing: 24) {
         ArcGauge(cents: 0)
             .frame(width: 300, height: 150)
-        ArcGauge(cents: 35)
+            .environment(\.hasSignal, true)
+        ArcGauge(cents: 10)
             .frame(width: 300, height: 150)
-        ArcGauge(cents: -25)
+            .environment(\.hasSignal, true)
+        ArcGauge(cents: -23)
             .frame(width: 300, height: 150)
+            .environment(\.hasSignal, true)
+        ArcGauge(cents: -11)
+            .frame(width: 300, height: 150)
+            .environment(\.hasSignal, true)
         ArcGauge(cents: -45)
             .frame(width: 300, height: 150)
+            .environment(\.hasSignal, true)
+        ArcGauge(cents: 0)
+            .frame(width: 300, height: 150)
+            .environment(\.hasSignal, false)
     }
     .padding()
 }

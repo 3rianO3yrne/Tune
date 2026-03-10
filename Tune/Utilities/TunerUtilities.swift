@@ -13,9 +13,11 @@ extension Double {
     /// Returns a color indicating tuning accuracy based on cents deviation
     var tuningAccuracyColor: Color {
         switch abs(self) {
-        case ..<5:  return .green
-        case ..<20: return .yellow
-        default:    return .red
+        case ..<1: return .accuracyGreenBright
+        case ..<11: return .accuracyGreen
+        case ..<21: return .accuracyYellow
+        case ..<31: return .accuracyOrange
+        default:    return .accuracyRed
         }
     }
     
