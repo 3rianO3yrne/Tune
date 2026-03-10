@@ -10,5 +10,4 @@ import Foundation
 enum PitchAccidentalDisplay: String, CaseIterable {
     case sharps = "Sharps"
     case flats = "Flats"
-    case both = "Sharps & Flats"
 }

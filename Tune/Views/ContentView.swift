@@ -13,9 +13,6 @@ struct ContentView: View {
     @State private var showSettings = false
 
     var body: some View {
-        let _ = print("frequency: ", tuner.frequency)
-        let _ = print("cents: ", tuner.cents)
-
 
         NavigationStack {
             Group {
@@ -61,10 +58,6 @@ struct ContentView: View {
             return tuner.noteNameWithSharps
         case .flats:
             return tuner.noteNameWithFlats
-        case .both:
-            let sharp = tuner.noteNameWithSharps
-            let flat = tuner.noteNameWithFlats
-            return sharp == flat ? sharp : "\(sharp)/\(flat)"
         }
     }
 }

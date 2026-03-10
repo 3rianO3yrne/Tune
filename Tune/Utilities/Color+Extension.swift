@@ -34,7 +34,7 @@ extension Color {
     static let readoutFaceDark   = Color(hex: "#161412")
 
     // Color Indicators
-    static let accuracyGreenBright = Color.green
+    static let accuracyGreenBright = Color.green.opacity(1.5)
     static let accuracyGreen = Color.green
     static let accuracyOrange = Color.orange
     static let accuracyYellow = Color.yellow

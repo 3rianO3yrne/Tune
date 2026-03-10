@@ -79,28 +79,22 @@ struct ArcGauge: View, Animatable {
                 // Outer glow
                 ctx.stroke(
                     arc,
-                    with: .color(clampedVal.tuningAccuracyColor.opacity(0.07)),
-                    style: StrokeStyle(lineWidth: trackW * 2.2, lineCap: .butt)
+                    with: .color(clampedVal.tuningAccuracyColor.opacity(0.08)),
+                    style: StrokeStyle(lineWidth: trackW * 1.85, lineCap: .butt)
                 )
                 // Mid glow
                 ctx.stroke(
                     arc,
-                    with: .color(clampedVal.tuningAccuracyColor.opacity(0.18)),
-                    style: StrokeStyle(lineWidth: trackW * 1.5, lineCap: .butt)
+                    with: .color(clampedVal.tuningAccuracyColor.opacity(0.10)),
+                    style: StrokeStyle(lineWidth: trackW * 1.45, lineCap: .butt)
                 )
                 // Main arc
                 ctx.stroke(
                     arc,
-                    with: .color(clampedVal.tuningAccuracyColor),
+                    with: .color(clampedVal.tuningAccuracyColor.opacity(0.50)),
                     style: StrokeStyle(lineWidth: trackW, lineCap: .butt)
                 )
 
-                // Damping overlay
-                ctx.stroke(
-                    arc,
-                    with: .color(Color.black.opacity(0.45)),
-                    style: StrokeStyle(lineWidth: trackW, lineCap: .butt)
-                )
             } else {
                 // Grayed out (no signal)
                 ctx.stroke(
@@ -198,4 +192,26 @@ struct ArcGauge: View, Animatable {
     }
     .padding()
     .preferredColorScheme(.dark)
+}
+
+#Preview {
+    VStack(spacing: 24) {
+        ArcGauge(cents: 0)
+            .frame(width: 300, height: 150)
+            .environment(\.hasSignal, true)
+        ArcGauge(cents: 10)
+            .frame(width: 300, height: 150)
+            .environment(\.hasSignal, true)
+        ArcGauge(cents: -23)
+            .frame(width: 300, height: 150)
+            .environment(\.hasSignal, true)
+        ArcGauge(cents: -45)
+            .frame(width: 300, height: 150)
+            .environment(\.hasSignal, true)
+        ArcGauge(cents: 0)
+            .frame(width: 300, height: 150)
+            .environment(\.hasSignal, false)
+    }
+    .padding()
+    .preferredColorScheme(.light)
 }

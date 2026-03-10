@@ -96,7 +96,7 @@ class TunerEngine {
     private func resetSilenceTimer() {
         silenceTimer?.invalidate()
         // adjust the interval here to change the silence behavior before going to the default no sound state
-        silenceTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { [weak self] (_: Timer) in
+        silenceTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { [weak self] (_: Timer) in
             guard let self else { return }
             self.frequency = 0
             self.cents = 0

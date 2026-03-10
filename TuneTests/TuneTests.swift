@@ -273,12 +273,11 @@ struct TunerErrorTests {
 struct PitchAccidentalDisplayTests {
 
     @Test func allCasesPresent() {
-        #expect(PitchAccidentalDisplay.allCases.count == 3)
+        #expect(PitchAccidentalDisplay.allCases.count == 2)
     }
 
     @Test func rawValues() {
         #expect(PitchAccidentalDisplay.sharps.rawValue == "Sharps")
         #expect(PitchAccidentalDisplay.flats.rawValue == "Flats")
-        #expect(PitchAccidentalDisplay.both.rawValue == "Sharps & Flats")
     }
 }
