@@ -1,10 +1,23 @@
 //
-//  DialDesignTokens.swift
+//  Color+Extension.swift
 //  Tune
 //
+//  Created by Brian O’Byrne on 3/10/26.
+//
+
 import SwiftUI
 
 extension Color {
+    init(hex: String) {
+        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var int: UInt64 = 0
+        Scanner(string: hex).scanHexInt64(&int)
+        let r = Double((int >> 16) & 0xFF) / 255
+        let g = Double((int >> 8)  & 0xFF) / 255
+        let b = Double(int         & 0xFF) / 255
+        self.init(red: r, green: g, blue: b)
+    }
+
     // Metal base
     static let gunmetal          = Color(hex: "#2C3035")
     static let gunmetalDark      = Color(hex: "#1A1D20")
@@ -27,16 +40,6 @@ extension Color {
     static let accuracyYellow = Color.yellow
     static let accuracyRed = Color.red
 
-}
-
-extension Color {
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        let r = Double((int >> 16) & 0xFF) / 255
-        let g = Double((int >> 8)  & 0xFF) / 255
-        let b = Double(int         & 0xFF) / 255
-        self.init(red: r, green: g, blue: b)
-    }
+    // Needle
+    static let noSignalNeedle = Color(hex: "#0f5a29")
 }
