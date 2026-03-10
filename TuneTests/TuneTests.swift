@@ -196,24 +196,34 @@ struct TunerUtilitiesTests {
     // MARK: - tuningAccuracyColor
 
     @Test func tuningAccuracyColorInTune() {
-        // < 5¢ → green
-        #expect(0.0.tuningAccuracyColor == .green)
-        #expect(4.9.tuningAccuracyColor == .green)
-        #expect((-4.9).tuningAccuracyColor == .green)
+        // < 1¢ → accuracyGreenBright
+        #expect(0.0.tuningAccuracyColor == .accuracyGreenBright)
+        #expect(0.9.tuningAccuracyColor == .accuracyGreenBright)
+        // 1–10¢ → accuracyGreen
+        #expect(1.0.tuningAccuracyColor == .accuracyGreen)
+        #expect(10.9.tuningAccuracyColor == .accuracyGreen)
+        #expect((-10.9).tuningAccuracyColor == .accuracyGreen)
     }
 
     @Test func tuningAccuracyColorSlightlyOff() {
-        // 5¢ – 19¢ → yellow
-        #expect(5.0.tuningAccuracyColor == .yellow)
-        #expect(19.9.tuningAccuracyColor == .yellow)
-        #expect((-10.0).tuningAccuracyColor == .yellow)
+        // 11¢ – 20¢ → accuracyYellow
+        #expect(11.0.tuningAccuracyColor == .accuracyYellow)
+        #expect(20.9.tuningAccuracyColor == .accuracyYellow)
+        #expect((-15.0).tuningAccuracyColor == .accuracyYellow)
+    }
+
+    @Test func tuningAccuracyColorModeratelyOff() {
+        // 21¢ – 30¢ → accuracyOrange
+        #expect(21.0.tuningAccuracyColor == .accuracyOrange)
+        #expect(30.9.tuningAccuracyColor == .accuracyOrange)
+        #expect((-25.0).tuningAccuracyColor == .accuracyOrange)
     }
 
     @Test func tuningAccuracyColorFarOff() {
-        // ≥ 20¢ → red
-        #expect(20.0.tuningAccuracyColor == .red)
-        #expect(50.0.tuningAccuracyColor == .red)
-        #expect((-35.0).tuningAccuracyColor == .red)
+        // ≥ 31¢ → accuracyRed
+        #expect(31.0.tuningAccuracyColor == .accuracyRed)
+        #expect(50.0.tuningAccuracyColor == .accuracyRed)
+        #expect((-35.0).tuningAccuracyColor == .accuracyRed)
     }
 
     // MARK: - formattedCentsLabel
