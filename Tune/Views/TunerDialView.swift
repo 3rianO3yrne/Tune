@@ -62,9 +62,9 @@ struct TunerDialView: View {
 
 // MARK: - Preview
 
-#Preview("Light — In Tune") {
+#Preview("Dark — In Tune") {
     TunerDialView(cents: 0, noteName: "A", octave: 4)
-        .preferredColorScheme(.light)
+        .preferredColorScheme(.dark)
 }
 
 #Preview("Light — Sharp") {
@@ -73,6 +73,6 @@ struct TunerDialView: View {
 }
 
 #Preview("Dark — Flat") {
-    TunerDialView(cents: -35, noteName: "G", octave: 3)
+    TunerDialView(cents: -23, noteName: "G", octave: 3)
         .preferredColorScheme(.dark)
 }

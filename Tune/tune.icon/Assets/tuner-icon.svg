@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <clipPath id="gaugeClip">
+      <ellipse cx="512" cy="512" rx="426" ry="244"/>
+    </clipPath>
+    <!-- Stronger gradient: light gray top, near-black bottom -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#62626E"/>
+      <stop offset="100%" stop-color="#18181C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 1. Background gradient -->
+  <rect width="1024" height="1024" fill="url(#bgGrad)"/>
+
+  <!-- 2. Drop shadow ring beneath bezel -->
+  <ellipse cx="512" cy="520" rx="466" ry="280" fill="#1A1A1E"/>
+
+  <!-- 3. Bezel fill -->
+  <ellipse cx="512" cy="512" rx="460" ry="274" fill="#46464C"/>
+
+  <!-- 4. Bezel outer highlight ring -->
+  <ellipse cx="512" cy="512" rx="460" ry="274" fill="none" stroke="#7A7A85" stroke-width="22"/>
+
+  <!-- 5. Bezel inner dark ring -->
+  <ellipse cx="512" cy="512" rx="438" ry="254" fill="none" stroke="#252528" stroke-width="10"/>
+
+  <!-- 6. Gauge face -->
+  <ellipse cx="512" cy="512" rx="426" ry="244" fill="#0F0F12"/>
+
+  <!-- 7. Arc — peak y=350, circle center(512,778), radius 428 -->
+  <g clip-path="url(#gaugeClip)">
+    <path d="M 86 740 A 428 428 0 0 1 938 740"
+          fill="none" stroke="#7A3D08" stroke-width="130" stroke-linecap="round"/>
+    <path d="M 86 740 A 428 428 0 0 1 938 740"
+          fill="none" stroke="#E8922E" stroke-width="80" stroke-linecap="round"/>
+  </g>
+
+  <!-- 8. Needle -->
+  <g clip-path="url(#gaugeClip)">
+    <g transform="rotate(-28 512 800)">
+      <line x1="512" y1="300" x2="512" y2="820"
+            stroke="#D07E22" stroke-width="17" stroke-linecap="round"/>
+      <line x1="512" y1="300" x2="512" y2="820"
+            stroke="#FFBA72" stroke-width="10" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- 9. Inner shadow rim -->
+  <ellipse cx="512" cy="512" rx="426" ry="244" fill="none" stroke="#000000" stroke-width="40" opacity="0.55"/>
+</svg>
