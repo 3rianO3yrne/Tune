@@ -41,6 +41,12 @@ class TunerEngine {
     // MARK: - Lifecycle
 
     func start() {
+
+        if isRunning {
+            print("already running")
+            return
+        }
+
         guard let input = engine.input else {
             error = TunerError.microphoneUnavailable
             return
@@ -65,8 +71,10 @@ class TunerEngine {
             tracker?.start()
             isRunning = true
             error = nil
-        } catch {
-            self.error = error
+            print("engine start")
+        } catch let err {
+            print(err)
+            self.error = err
         }
     }
 
@@ -76,6 +84,7 @@ class TunerEngine {
         silenceTimer?.invalidate()
         silenceTimer = nil
         isRunning = false
+        print("engine stop")
     }
 
     // MARK: - Pitch Processing

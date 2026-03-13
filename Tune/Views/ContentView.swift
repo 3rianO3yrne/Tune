@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var tuner = TunerEngine()
+    @Environment(TunerEngine.self) var tuner
     @State private var pitchAccidentalDisplay: PitchAccidentalDisplay = .sharps
     @State private var showSettings = false
 
