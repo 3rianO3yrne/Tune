@@ -63,5 +63,7 @@ struct ContentView: View {
 }
 
 #Preview {
+    @Previewable @State var tuner = TunerEngine()
     ContentView()
+        .environment(tuner)
 }
