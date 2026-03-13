@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1024 1024"
+     width="1024" height="1024">
+  <!--
+    Arch band — solid fill, no gradient or blur.
+
+    Pivot   : (512, 700)
+    Outer R : 340   → outer endpoints (183.6, 612) and (840.4, 612)
+    Inner R : 260   → inner endpoints (260.9, 632.7) and (763.1, 632.7)
+    Arc span: 195° → 345° CW (150° sweep passing through the top / 270°)
+
+    The outer corners sit just outside the face oval — intentional.
+    Layer 04 (bezel ring) will mask that overflow.
+  -->
+  <path fill="#CC7A00" d="
+    M 183.6,612.0
+    A 340,340 0 0,1 840.4,612.0
+    L 763.1,632.7
+    A 260,260 0 0,0 260.9,632.7
+    Z
+  "/>
+</svg>

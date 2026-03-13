@@ -34,9 +34,22 @@
 		EF36F3FD2F4F84EA0087CD44 /* TuneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TuneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		EF6C84DC2F64B26E001662EC /* Exceptions for "Tune" folder in "Tune" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = EF36F3E52F4F84E80087CD44 /* Tune */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		EF36F3E82F4F84E80087CD44 /* Tune */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EF6C84DC2F64B26E001662EC /* Exceptions for "Tune" folder in "Tune" target */,
+			);
 			path = Tune;
 			sourceTree = "<group>";
 		};
@@ -406,7 +419,7 @@
 		EF36F4082F4F84EA0087CD44 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = tune;
+				ASSETCATALOG_COMPILER_APPICON_NAME = tuneapp;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -414,7 +427,9 @@
 				DEVELOPMENT_TEAM = XB8K9VCVP8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tune/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tune;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access needed while in use to detect the pitch of your instrument.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -445,7 +460,7 @@
 		EF36F4092F4F84EA0087CD44 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = tune;
+				ASSETCATALOG_COMPILER_APPICON_NAME = tuneapp;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -453,7 +468,9 @@
 				DEVELOPMENT_TEAM = XB8K9VCVP8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tune/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tune;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access needed while in use to detect the pitch of your instrument.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

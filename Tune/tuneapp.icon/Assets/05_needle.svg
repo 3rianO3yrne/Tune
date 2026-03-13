@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1024 1024"
+     width="1024" height="1024">
+  <!--
+    Needle — solid fill, no shadow or blur.
+
+    Pivot   : (512, 700)
+    Direction: 275° in SVG coords (5° to the right of straight up)
+    Length  : 290 px
+
+    Direction unit vector : (cos275°, sin275°) = (0.0872, −0.9962)
+    Perpendicular unit    : (0.9962,  0.0872)
+
+    Base corners  (±8px perp from pivot):
+      right : (519.97, 700.70)  → (520, 701)
+      left  : (504.03, 699.30)  → (504, 699)
+    Tip (290px along direction) : (537.3, 411.1) → (537, 411)
+  -->
+
+  <!-- Needle body — tapered triangle -->
+  <polygon points="520,701 504,699 537,411"
+           fill="#E89000"/>
+
+  <!-- Base cap — circle at pivot, same color, cartoony balloon feel -->
+  <circle cx="512" cy="700" r="18"
+          fill="#E89000"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!--
+    Bezel ring — solid stroke only, no fill inside the oval.
+
+    The opaque ring covers the arch overflow at the face-oval boundary.
+    Increase stroke-width to make the bezel chunkier (each +2 units
+    adds 1px to both inner and outer edge).
+  -->
+  <ellipse cx="512" cy="510" rx="387.5" ry="247.5" fill="none" stroke="#606063" stroke-width="70"/>
+</svg>

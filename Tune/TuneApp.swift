@@ -28,7 +28,6 @@ struct TuneApp: App {
                 .playAndRecord,
                 options: [
                     .defaultToSpeaker,
-                    .mixWithOthers,
                     .allowBluetoothA2DP,
                 ]
             )
@@ -38,7 +37,6 @@ struct TuneApp: App {
 
             print(err)
         }
-
         print("app initialized")
     }
 
@@ -46,24 +44,6 @@ struct TuneApp: App {
         WindowGroup {
             ContentView()
                 .environment(tuner)
-                .onChange(of: scenePhase) { oldPhase, newPhase in
-                    if newPhase == .inactive { return }
-                    do {
-                        let audioSession = AVAudioSession.sharedInstance()
-                        if newPhase == .active {
-                            print("Active Phase")
-                            try audioSession.setActive(true)
-                            print("active phase: audio session active")
-                        } else if newPhase == .background {
-                            try audioSession.setActive(false)
-                            print("background phase: audio session inactive")
-                        }
-                    } catch let err {
-                        print(err)
-                    }
-                }
-
         }
     }
-
 }

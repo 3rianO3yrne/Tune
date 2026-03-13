@@ -6,6 +6,7 @@
 xcuserdata/
 *.xccheckout
 *.xcscmblueprint
+*.xcodeproj/
 
 # Build artifacts
 build/
@@ -30,7 +31,3 @@ fastlane/test_output
 
 # Claude Code local data
 .claude/
-
-# CocoaPods (not currently used)
-# Pods/
-# Podfile.lock
