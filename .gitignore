@@ -4,7 +4,6 @@
 
 # Xcode
 *.xcodeproj/
-**/*.xcodeproj/
 
 # Build artifacts
 build/
