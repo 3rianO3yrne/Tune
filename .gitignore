@@ -2,11 +2,9 @@
 .DS_Store
 *.DS_Store
 
-# Xcode user data
-xcuserdata/
-*.xccheckout
-*.xcscmblueprint
+# Xcode
 *.xcodeproj/
+**/*.xcodeproj/
 
 # Build artifacts
 build/
@@ -18,16 +16,6 @@ DerivedData/
 .build/
 Packages/
 .swiftpm/
-
-# Playgrounds
-timeline.xctimeline
-playground.xcworkspace
-
-# Fastlane
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/*.png
-fastlane/test_output
 
 # Claude Code local data
 .claude/
