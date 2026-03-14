@@ -24,10 +24,9 @@ class TunerEngine {
     var error: Error?
     var referencePitch: Float = 440.0
 
-    // MARK: - Private Constants
-
-    private static let noteNameSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-    private static let noteNamesFlats  = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
+    // MARK: - Private Constants ♭/♯
+    private static let noteNameSharps = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"]
+    private static let noteNamesFlats  = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"]
 
     // MARK: - Audio
 

@@ -10,19 +10,28 @@ import SwiftUI
 struct SettingsView: View {
     @Binding var pitchAccidentalDisplay: PitchAccidentalDisplay
     @Binding var referencePitch: Float
+    @Binding var colorSchemePreference: AppColorScheme
     @State private var showReferencePitch = false
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         List {
-            Section("Display") {
+            Section("System") {
+                Picker("Appearance", selection: $colorSchemePreference) {
+                    ForEach(AppColorScheme.allCases, id: \.self) { option in
+                        Text(option.label).tag(option)
+                    }
+                }
+                .pickerStyle(.menu)
+            }
+
+            Section("Note Display") {
                 Picker("Accidentals", selection: $pitchAccidentalDisplay) {
                     ForEach(PitchAccidentalDisplay.allCases, id: \.self) { option in
                         Text(option.rawValue).tag(option)
                     }
                 }
-                .pickerStyle(.inline)
-                .labelsHidden()
+                .pickerStyle(.menu)
             }
 
             Section("Tuning") {
@@ -49,7 +58,8 @@ struct SettingsView: View {
     NavigationStack {
         SettingsView(
             pitchAccidentalDisplay: .constant(.sharps),
-            referencePitch: .constant(440.0)
+            referencePitch: .constant(440.0),
+            colorSchemePreference: .constant(.system)
         )
     }
 }

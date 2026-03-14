@@ -11,6 +11,7 @@ struct ContentView: View {
     @Environment(TunerEngine.self) var tuner
     @State private var pitchAccidentalDisplay: PitchAccidentalDisplay = .sharps
     @State private var showSettings = false
+    @AppStorage("colorSchemePreference") private var colorSchemePreference: AppColorScheme = .system
 
     var body: some View {
 
@@ -39,12 +40,14 @@ struct ContentView: View {
                             referencePitch: Binding(
                                 get: { tuner.referencePitch },
                                 set: { tuner.referencePitch = $0 }
-                            )
+                            ),
+                            colorSchemePreference: $colorSchemePreference
                         )
                     }
                 }
             }
         }
+        .preferredColorScheme(colorSchemePreference.colorScheme)
         .task { tuner.start() }
         .onDisappear { tuner.stop() }
     }

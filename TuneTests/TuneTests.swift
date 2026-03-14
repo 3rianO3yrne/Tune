@@ -59,8 +59,8 @@ struct TunerEngineTests {
     @Test func gSharp4() {
         let engine = TunerEngine()
         engine.update(frequency: 415.30)
-        #expect(engine.noteNameWithSharps == "G#")
-        #expect(engine.noteNameWithFlats == "Ab")
+        #expect(engine.noteNameWithSharps == "G♯")
+        #expect(engine.noteNameWithFlats == "A♭")
         #expect(engine.octave == 4)
     }
 
@@ -75,8 +75,8 @@ struct TunerEngineTests {
     @Test func dSharp4() {
         let engine = TunerEngine()
         engine.update(frequency: 311.13)
-        #expect(engine.noteNameWithSharps == "D#")
-        #expect(engine.noteNameWithFlats == "Eb")
+        #expect(engine.noteNameWithSharps == "D♯")
+        #expect(engine.noteNameWithFlats == "E♭")
         #expect(engine.octave == 4)
     }
 
@@ -196,11 +196,11 @@ struct TunerUtilitiesTests {
     // MARK: - tuningAccuracyColor
 
     @Test func tuningAccuracyColorInTune() {
-        // < 1¢ → accuracyGreenBright
+        // < 4¢ → accuracyGreenBright
         #expect(0.0.tuningAccuracyColor == .accuracyGreenBright)
-        #expect(0.9.tuningAccuracyColor == .accuracyGreenBright)
-        // 1–10¢ → accuracyGreen
-        #expect(1.0.tuningAccuracyColor == .accuracyGreen)
+        #expect(3.9.tuningAccuracyColor == .accuracyGreenBright)
+        // 4–10¢ → accuracyGreen
+        #expect(4.0.tuningAccuracyColor == .accuracyGreen)
         #expect(10.9.tuningAccuracyColor == .accuracyGreen)
         #expect((-10.9).tuningAccuracyColor == .accuracyGreen)
     }
@@ -213,15 +213,15 @@ struct TunerUtilitiesTests {
     }
 
     @Test func tuningAccuracyColorModeratelyOff() {
-        // 21¢ – 30¢ → accuracyOrange
+        // 21¢ – 24¢ → accuracyOrange
         #expect(21.0.tuningAccuracyColor == .accuracyOrange)
-        #expect(30.9.tuningAccuracyColor == .accuracyOrange)
-        #expect((-25.0).tuningAccuracyColor == .accuracyOrange)
+        #expect(24.9.tuningAccuracyColor == .accuracyOrange)
+        #expect((-22.0).tuningAccuracyColor == .accuracyOrange)
     }
 
     @Test func tuningAccuracyColorFarOff() {
-        // ≥ 31¢ → accuracyRed
-        #expect(31.0.tuningAccuracyColor == .accuracyRed)
+        // ≥ 25¢ → accuracyRed
+        #expect(25.0.tuningAccuracyColor == .accuracyRed)
         #expect(50.0.tuningAccuracyColor == .accuracyRed)
         #expect((-35.0).tuningAccuracyColor == .accuracyRed)
     }
@@ -277,7 +277,40 @@ struct PitchAccidentalDisplayTests {
     }
 
     @Test func rawValues() {
-        #expect(PitchAccidentalDisplay.sharps.rawValue == "Sharps")
-        #expect(PitchAccidentalDisplay.flats.rawValue == "Flats")
+        #expect(PitchAccidentalDisplay.sharps.rawValue == "♯")
+        #expect(PitchAccidentalDisplay.flats.rawValue == "♭")
+    }
+}
+
+// MARK: - AppColorScheme
+
+struct AppColorSchemeTests {
+
+    @Test func allCasesPresent() {
+        #expect(AppColorScheme.allCases.count == 3)
+    }
+
+    @Test func rawValues() {
+        #expect(AppColorScheme.system.rawValue == "system")
+        #expect(AppColorScheme.light.rawValue == "light")
+        #expect(AppColorScheme.dark.rawValue == "dark")
+    }
+
+    @Test func colorSchemeForSystem() {
+        #expect(AppColorScheme.system.colorScheme == nil)
+    }
+
+    @Test func colorSchemeForLight() {
+        #expect(AppColorScheme.light.colorScheme == .light)
+    }
+
+    @Test func colorSchemeForDark() {
+        #expect(AppColorScheme.dark.colorScheme == .dark)
+    }
+
+    @Test func labels() {
+        #expect(AppColorScheme.system.label == "auto")
+        #expect(AppColorScheme.light.label == "light")
+        #expect(AppColorScheme.dark.label == "dark")
     }
 }

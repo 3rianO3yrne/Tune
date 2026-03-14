@@ -8,6 +8,6 @@
 import Foundation
 
 enum PitchAccidentalDisplay: String, CaseIterable {
-    case sharps = "Sharps"
-    case flats = "Flats"
+    case sharps = "♯"
+    case flats = "♭"
 }
