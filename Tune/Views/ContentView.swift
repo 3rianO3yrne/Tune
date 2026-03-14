@@ -33,7 +33,7 @@ struct ContentView: View {
                     } label: {
                         Image(systemName: "gearshape")
                     }
-                    .popover(isPresented: $showSettings) {
+                    .sheet(isPresented: $showSettings) {
                         SettingsView(
                             pitchAccidentalDisplay: $pitchAccidentalDisplay,
                             referencePitch: Binding(

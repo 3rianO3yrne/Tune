@@ -39,7 +39,6 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Settings")
-        .presentationCompactAdaptation(.sheet)
         .sheet(isPresented: $showReferencePitch) {
             ReferencePitchSheet(referencePitch: $referencePitch)
         }
